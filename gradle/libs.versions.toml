@@ -1,6 +1,6 @@
 [versions]
 agp = "8.3.0"
-kotlin = "1.9.0"
+kotlin = "1.9.20"
 coreKtx = "1.12.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -9,12 +9,12 @@ appcompat = "1.6.1"
 material = "1.11.0"
 activity = "1.8.2"
 constraintlayout = "2.1.4"
-version_coroutine = '1.8.0'
-version_lifecycle_extensions = "2.2.0"
-version_lifecycle = "2.7.0"
-version_navigation = '1.0.0'
+coroutine = "1.8.0"
 version_room = "2.6.1"
 safe = "2.7.7"
+ksp = "1.8.10-1.0.9"
+navigationFragmentKtx = "2.7.7"
+navigationUiKtx = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,18 +26,19 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 room = { group = "androidx.room", name = "room-runtime", version.ref = "version_room" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "version_room" }
 room-coroutines = { group = "androidx.room", name = "room-ktx", version.ref = "version_room" }
-androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "version_lifecycle_extensions" }
-androidx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "version_coroutine" }
-androidx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "version_coroutine" }
-androidx-navigation-ktx = { group = "android.arch.navigation", name = "navigation-fragment-ktx", version.ref = "version_navigation" }
-androidx-navigation-ui-ktx = { group = "android.arch.navigation", name = "navigation-ui-ktx", version.ref = "version_navigation" }
-androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "version_lifecycle" }
+coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+
 
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 safeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safe" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+
+
 

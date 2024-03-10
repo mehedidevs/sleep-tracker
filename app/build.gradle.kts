@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.safeArgs)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -14,7 +15,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,11 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     dataBinding {
         enable = true
@@ -47,15 +48,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.room)
-    implementation(libs.room.compiler)
-    implementation(libs.room.coroutines)
-    implementation(libs.androidx.lifecycle)
-    implementation(libs.androidx.coroutines)
-    implementation(libs.androidx.coroutines.android)
-    implementation(libs.androidx.navigation.ktx)
+    implementation(libs.coroutines)
+    implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.room)
+    implementation(libs.room.coroutines)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/sleepQualityFragment">
+
+
+    <fragment
+        android:id="@+id/sleepQualityFragment"
+        android:name="com.mehedi.sleep_tracker.sleepquality.SleepQualityFragment"
+        android:label="SleepQualityFragment"
+        tools:layout="@layout/fragment_sleep_quality" />
+
+    <fragment
+        android:id="@+id/sleepTrackerFragment"
+        android:name="com.mehedi.sleep_tracker.sleeptracker.SleepTrackerFragment"
+        android:label="SleepTrackerFragment"
+        tools:layout="@layout/fragment_sleep_tracker" />
+</navigation>
