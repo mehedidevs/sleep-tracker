@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.safeArgs)
     alias(libs.plugins.ksp)
+    kotlin("kapt")
 }
 
 android {
@@ -52,8 +53,9 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.room)
-    implementation(libs.room.coroutines)
+    kapt("androidx.room:room-compiler:2.6.1")
 
+    implementation(libs.room.coroutines)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

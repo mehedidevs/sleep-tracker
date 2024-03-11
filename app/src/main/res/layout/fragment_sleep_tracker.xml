@@ -24,6 +24,10 @@
          click handlers, and state variables. -->
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.mehedi.sleep_tracker.sleeptracker.SleepTrackerViewModel" />
+
     </data>
 
     <!-- Start of the visible fragment layout using ConstraintLayout -->
@@ -50,13 +54,14 @@
                  whenever it changes. -->
 
             <TextView
+
                 android:id="@+id/textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginEnd="@dimen/margin"
-                android:text="@string/how_was_hour_sleep" />
+                android:text="@{viewmodel.nightsString}" />
         </ScrollView>
 
         <!-- With data binding and LiveData, we can track the buttons' visibility states
@@ -65,10 +70,10 @@
 
         <Button
             android:id="@+id/start_button"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
+            android:onClick="@{()-> viewmodel.onStartTracking() }"
             android:text="@string/start"
             app:layout_constraintBaseline_toBaselineOf="@id/stop_button"
             app:layout_constraintEnd_toStartOf="@+id/stop_button"
@@ -77,11 +82,11 @@
 
         <Button
             android:id="@+id/stop_button"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
+            android:onClick="@{() -> viewmodel.onStopTracking()}"
             android:text="@string/stop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/start_button"
@@ -89,12 +94,12 @@
 
         <Button
             android:id="@+id/clear_button"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="@dimen/margin"
+            android:onClick="@{() -> viewmodel.onClear()}"
             android:text="@string/clear"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

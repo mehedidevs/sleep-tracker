@@ -22,7 +22,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mehedi.sleep_tracker.R
+import com.mehedi.sleep_tracker.database.SleepDatabase
 import com.mehedi.sleep_tracker.databinding.FragmentSleepTrackerBinding
 
 /**
@@ -32,18 +35,40 @@ import com.mehedi.sleep_tracker.databinding.FragmentSleepTrackerBinding
  */
 class SleepTrackerFragment : Fragment() {
 
+
     /**
      * Called when the Fragment is ready to display content to the screen.
      *
      * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_tracker, container, false)
+            inflater, R.layout.fragment_sleep_tracker, container, false
+        )
 
+        val dataSource =
+            SleepDatabase.getInstance(requireContext().applicationContext).sleepDatabaseDao
+        val application = requireNotNull(this.activity).application
+        val vmFactory = SleepTrackerViewModelFactory(dataSource, application)
+
+        val viewModel: SleepTrackerViewModel by viewModels { vmFactory }
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
+        viewModel.navigateToSleepQuality.observe(viewLifecycleOwner) { night ->
+
+            night?.let {
+                findNavController().navigate(
+                    SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepQualityFragment(
+                        night.nightId
+                    )
+                )
+                viewModel.doneNavigating()
+            }
+        }
         return binding.root
     }
 }

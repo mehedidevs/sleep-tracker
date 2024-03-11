@@ -22,7 +22,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mehedi.sleep_tracker.R
+import com.mehedi.sleep_tracker.database.SleepDatabase
 import com.mehedi.sleep_tracker.databinding.FragmentSleepQualityBinding
 
 /**
@@ -38,14 +41,39 @@ class SleepQualityFragment : Fragment() {
      *
      * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepQualityBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_quality, container, false)
+            inflater, R.layout.fragment_sleep_quality, container, false
+        )
+
+        val arguments = SleepQualityFragmentArgs.fromBundle(requireArguments())
 
         val application = requireNotNull(this.activity).application
+        val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
+        val viewModelFactory = SleepQualityViewModelFactory(arguments.sleepNightKey, dataSource)
+
+        val viewModel: SleepQualityViewModel by viewModels { viewModelFactory }
+
+        binding.viewmodel = viewModel
+
+        viewModel.navigateToSleepTracker.observe(viewLifecycleOwner) { isNavigate ->
+            isNavigate?.let {
+                if (it) {
+                    findNavController().navigate(SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment())
+                    viewModel.doneNavigating()
+                }
+            }
+
+
+        }
+
+
+
 
         return binding.root
     }
