@@ -95,7 +95,10 @@ class SleepTrackerFragment : Fragment() {
     private fun setNightRecyclerview(viewModel: SleepTrackerViewModel) {
         viewModel.nights.observe(viewLifecycleOwner) {
 
-            val sleepAdapter = SleepAdapter(it)
+            val sleepAdapter = SleepAdapter().apply {
+                submitList(it)
+            }
+
 
             binding.rvSleepTracker.apply {
                 adapter = sleepAdapter
