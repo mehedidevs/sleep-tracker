@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="sleep"
+            type="com.mehedi.sleep_tracker.database.SleepNight" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,12 +24,13 @@
                 android:layout_height="80dp"
                 android:contentDescription="@string/image_view_sleep_quality"
                 android:padding="16dp"
-                android:src="@drawable/ic_sleep_0"
+                app:sleepImage="@{sleep}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                app:sleepDuration="@{sleep}"
                 android:id="@+id/tv_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,6 +44,7 @@
 
 
             <TextView
+                app:sleepQuality="@{sleep}"
                 android:id="@+id/tv_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

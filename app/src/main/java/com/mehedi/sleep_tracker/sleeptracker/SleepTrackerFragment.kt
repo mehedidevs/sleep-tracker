@@ -99,11 +99,9 @@ class SleepTrackerFragment : Fragment() {
                 submitList(it)
             }
 
-
             binding.rvSleepTracker.apply {
                 adapter = sleepAdapter
                 setHasFixedSize(true)
-
             }
 
 

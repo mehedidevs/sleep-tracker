@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mehedi.sleep_tracker.R
-import com.mehedi.sleep_tracker.convertLongToDateString
 import com.mehedi.sleep_tracker.database.SleepNight
 import com.mehedi.sleep_tracker.databinding.ItemSleepNightBinding
 
@@ -28,18 +27,10 @@ class SleepAdapter : ListAdapter<SleepNight, SleepAdapter.SleepViewHolder>(Sleep
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            sleepNight: SleepNight,
+            sleepNight: SleepNight
         ) {
-            when (sleepNight.sleepQuality) {
-                0 -> binding.ivSleepQuality.setImageResource(R.drawable.ic_sleep_0)
-                1 -> binding.ivSleepQuality.setImageResource(R.drawable.ic_sleep_1)
-                2 -> binding.ivSleepQuality.setImageResource(R.drawable.ic_sleep_2)
-                3 -> binding.ivSleepQuality.setImageResource(R.drawable.ic_sleep_3)
-                4 -> binding.ivSleepQuality.setImageResource(R.drawable.ic_sleep_4)
-                5 -> binding.ivSleepQuality.setImageResource(R.drawable.ic_sleep_5)
-            }
-            binding.tvEndTime.text = convertLongToDateString(sleepNight.endTimeMilli)
-            binding.tvStartTime.text = convertLongToDateString(sleepNight.startTimeMilli)
+            binding.sleep = sleepNight
+            binding.executePendingBindings()
         }
 
         companion object {

@@ -24,8 +24,8 @@ import com.mehedi.sleep_tracker.database.SleepDatabaseDao
 import com.mehedi.sleep_tracker.database.SleepNight
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.junit.Assert.assertEquals
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,16 +49,16 @@ class SleepDatabaseTest {
         // Using an in-memory database because the information stored here disappears when the
         // process is killed.
         db = Room.inMemoryDatabaseBuilder(context, SleepDatabase::class.java)
-                // Allowing main thread queries, just for testing.
-                .allowMainThreadQueries()
-                .build()
+            // Allowing main thread queries, just for testing.
+            .allowMainThreadQueries()
+            .build()
         sleepDao = db.sleepDatabaseDao
     }
 
     @After
     @Throws(IOException::class)
     fun closeDb() {
-        if (::db.isInitialized){
+        if (::db.isInitialized) {
             db.close()
         }
 
@@ -68,12 +68,12 @@ class SleepDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetNight() {
-
+        GlobalScope.launch {
             val night = SleepNight()
             sleepDao.insert(night)
             val tonight = sleepDao.getTonight()
             assertEquals(tonight?.sleepQuality, -1)
-
+        }
 
 
     }
