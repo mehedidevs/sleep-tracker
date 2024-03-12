@@ -24,6 +24,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.mehedi.sleep_tracker.R
 import com.mehedi.sleep_tracker.database.SleepDatabase
 import com.mehedi.sleep_tracker.databinding.FragmentSleepTrackerBinding
@@ -35,6 +36,7 @@ import com.mehedi.sleep_tracker.databinding.FragmentSleepTrackerBinding
  */
 class SleepTrackerFragment : Fragment() {
 
+    lateinit var binding: FragmentSleepTrackerBinding
 
     /**
      * Called when the Fragment is ready to display content to the screen.
@@ -46,7 +48,7 @@ class SleepTrackerFragment : Fragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_sleep_tracker, container, false
         )
 
@@ -58,6 +60,9 @@ class SleepTrackerFragment : Fragment() {
         val viewModel: SleepTrackerViewModel by viewModels { vmFactory }
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
+        setNightRecyclerview(viewModel)
+
+
         viewModel.navigateToSleepQuality.observe(viewLifecycleOwner) { night ->
 
             night?.let {
@@ -69,6 +74,38 @@ class SleepTrackerFragment : Fragment() {
                 viewModel.doneNavigating()
             }
         }
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it) {
+                    Snackbar.make(
+                        requireActivity().findViewById(android.R.id.content),
+                        getString(R.string.cleared_message),
+                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    ).show()
+                    viewModel.doneShowingSnackbar()
+                }
+            }
+
+
+        }
+
         return binding.root
+    }
+
+    private fun setNightRecyclerview(viewModel: SleepTrackerViewModel) {
+        viewModel.nights.observe(viewLifecycleOwner) {
+
+            val sleepAdapter = SleepAdapter(it)
+
+            binding.rvSleepTracker.apply {
+                adapter = sleepAdapter
+                setHasFixedSize(true)
+
+            }
+
+
+        }
+
+
     }
 }

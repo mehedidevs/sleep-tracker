@@ -18,10 +18,8 @@ package com.mehedi.sleep_tracker
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
-import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import androidx.core.text.HtmlCompat
 import com.mehedi.sleep_tracker.database.SleepNight
 import java.text.SimpleDateFormat
 
@@ -56,10 +54,11 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
  * HH:mm - Hours and minutes in 24hr format
  */
 @SuppressLint("SimpleDateFormat")
-fun convertLongToDateString(systemTime: Long): String {
+fun convertLongToDateString(startTimeMilli: Long): String {
     return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
-        .format(systemTime).toString()
+        .format(startTimeMilli).toString()
 }
+
 
 /**
  * Takes a list of SleepNights and converts and formats it into one string for display.
@@ -99,3 +98,4 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
     }
     return Html.fromHtml(sb.toString(), Html.FROM_HTML_MODE_LEGACY)
 }
+
