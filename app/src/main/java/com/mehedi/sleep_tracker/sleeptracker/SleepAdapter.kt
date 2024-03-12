@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mehedi.sleep_tracker.R
 import com.mehedi.sleep_tracker.database.SleepNight
-import com.mehedi.sleep_tracker.databinding.ItemSleepNightBinding
+import com.mehedi.sleep_tracker.databinding.ItemSleepNightGridBinding
 
 class SleepAdapter : ListAdapter<SleepNight, SleepAdapter.SleepViewHolder>(SleepNightDiff()) {
 
@@ -23,7 +23,7 @@ class SleepAdapter : ListAdapter<SleepNight, SleepAdapter.SleepViewHolder>(Sleep
         holder.bind(sleepNight)
     }
 
-    class SleepViewHolder private constructor(private val binding: ItemSleepNightBinding) :
+    class SleepViewHolder private constructor(private val binding: ItemSleepNightGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
@@ -35,9 +35,9 @@ class SleepAdapter : ListAdapter<SleepNight, SleepAdapter.SleepViewHolder>(Sleep
 
         companion object {
             fun from(parent: ViewGroup): SleepViewHolder {
-                val binding: ItemSleepNightBinding = DataBindingUtil.inflate(
+                val binding: ItemSleepNightGridBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                    R.layout.item_sleep_night,
+                    R.layout.item_sleep_night_grid,
                     parent,
                     false
                 )
