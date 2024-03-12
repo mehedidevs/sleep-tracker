@@ -17,6 +17,7 @@
 package com.mehedi.sleep_tracker.sleeptracker
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,7 @@ import com.mehedi.sleep_tracker.databinding.FragmentSleepTrackerBinding
 class SleepTrackerFragment : Fragment() {
 
     lateinit var binding: FragmentSleepTrackerBinding
+    private lateinit var sleepAdapter: SleepAdapter
 
     /**
      * Called when the Fragment is ready to display content to the screen.
@@ -75,6 +77,16 @@ class SleepTrackerFragment : Fragment() {
                 viewModel.doneNavigating()
             }
         }
+
+        viewModel.navigateToSleepDataQuality.observe(viewLifecycleOwner) { nightId ->
+
+            nightId?.let {
+
+                Log.d("nightId", "$it")
+
+
+            }
+        }
         viewModel.showSnackBarEvent.observe(viewLifecycleOwner) {
             it?.let {
                 if (it) {
@@ -90,17 +102,22 @@ class SleepTrackerFragment : Fragment() {
 
         }
 
+        sleepAdapter = SleepAdapter(SleepNightListener { nightId ->
+
+            viewModel.onSleepNightClicked(nightId)
+
+        })
+
         return binding.root
     }
+
 
     private fun setNightRecyclerview(viewModel: SleepTrackerViewModel) {
         viewModel.nights.observe(viewLifecycleOwner) {
             val gridLayoutManager = GridLayoutManager(requireContext(), 3)
 
 
-            val sleepAdapter = SleepAdapter().apply {
-                submitList(it)
-            }
+            sleepAdapter.submitList(it)
 
             binding.rvSleepTracker.apply {
                 adapter = sleepAdapter

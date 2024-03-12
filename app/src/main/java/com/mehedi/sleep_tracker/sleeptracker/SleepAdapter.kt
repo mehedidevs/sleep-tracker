@@ -10,7 +10,8 @@ import com.mehedi.sleep_tracker.R
 import com.mehedi.sleep_tracker.database.SleepNight
 import com.mehedi.sleep_tracker.databinding.ItemSleepNightGridBinding
 
-class SleepAdapter : ListAdapter<SleepNight, SleepAdapter.SleepViewHolder>(SleepNightDiff()) {
+class SleepAdapter(private val sleepNightListener: SleepNightListener) :
+    ListAdapter<SleepNight, SleepAdapter.SleepViewHolder>(SleepNightDiff()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SleepViewHolder {
@@ -20,17 +21,20 @@ class SleepAdapter : ListAdapter<SleepNight, SleepAdapter.SleepViewHolder>(Sleep
 
     override fun onBindViewHolder(holder: SleepViewHolder, position: Int) {
         val sleepNight = getItem(position)
-        holder.bind(sleepNight)
+        holder.bind(sleepNight, sleepNightListener)
     }
 
     class SleepViewHolder private constructor(private val binding: ItemSleepNightGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            sleepNight: SleepNight
+            sleepNight: SleepNight,
+            sleepNightListener: SleepNightListener
         ) {
             binding.sleep = sleepNight
+           binding.
             binding.executePendingBindings()
+
         }
 
         companion object {
@@ -62,3 +66,4 @@ class SleepNightDiff : DiffUtil.ItemCallback<SleepNight>() {
         return oldItem == newItem
     }
 }
+

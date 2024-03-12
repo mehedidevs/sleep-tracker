@@ -27,5 +27,25 @@
         <action
             android:id="@+id/action_sleepTrackerFragment_to_sleepQualityFragment"
             app:destination="@id/sleepQualityFragment" />
+        <action
+            android:id="@+id/action_sleepTrackerFragment_to_sleepDetailFragment"
+            app:destination="@id/sleepDetailFragment" />
+        <action
+            android:id="@+id/action_sleepTrackerFragment_to_blankFragment"
+            app:destination="@id/blankFragment" />
+
     </fragment>
+    <fragment
+        android:id="@+id/sleepDetailFragment"
+        android:name="com.mehedi.sleep_tracker.sleepdetail.SleepDetailFragment"
+        android:label="SleepDetailFragment"
+        tools:layout="@layout/fragment_sleep_detail">
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.mehedi.sleep_tracker.sleepdetail.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
 </navigation>

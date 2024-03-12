@@ -7,6 +7,12 @@
         <variable
             name="sleep"
             type="com.mehedi.sleep_tracker.database.SleepNight" />
+   
+        
+        <variable
+            name="Cl"
+            type="" />
+   
     </data>
 
     <androidx.cardview.widget.CardView
