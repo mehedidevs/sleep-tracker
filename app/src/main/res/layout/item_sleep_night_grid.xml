@@ -7,17 +7,18 @@
         <variable
             name="sleep"
             type="com.mehedi.sleep_tracker.database.SleepNight" />
-   
-        
+
+
         <variable
-            name="Cl"
-            type="" />
-   
+            name="clickListener"
+            type="com.mehedi.sleep_tracker.sleeptracker.SleepNightListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(sleep.nightId)}"
         android:layout_margin="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -22,24 +22,44 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mehedi.sleep_tracker.R
-
+import com.mehedi.sleep_tracker.database.SleepDatabase
 import com.mehedi.sleep_tracker.databinding.FragmentSleepDetailBinding
 
 
 class SleepDetailFragment : Fragment() {
-
+    lateinit var binding: FragmentSleepDetailBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentSleepDetailBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_sleep_detail, container, false
         )
 
+        val arguments = SleepDetailFragmentArgs.fromBundle(requireArguments())
+
+        val application = requireNotNull(this.activity).application
+        val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
+        val viewModelFactory = SleepDetailViewModelFactory(arguments.nightKeyId, dataSource)
+
+        val myViewModel: SleepDetailViewModel by viewModels { viewModelFactory }
+
+        binding.viewModel = myViewModel
+        binding.lifecycleOwner = this
+        myViewModel.navigateToSleepTracker.observe(viewLifecycleOwner) {
+            it?.let { isNavigated: Boolean ->
+
+                if (isNavigated) {
+                    myViewModel.doneNavigating()
+                    findNavController().popBackStack()
+                }
+            }
+        }
         return binding.root
     }
 }

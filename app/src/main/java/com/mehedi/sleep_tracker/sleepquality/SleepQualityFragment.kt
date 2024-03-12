@@ -35,6 +35,7 @@ import com.mehedi.sleep_tracker.databinding.FragmentSleepQualityBinding
  * and the database is updated.
  */
 class SleepQualityFragment : Fragment() {
+    lateinit var binding: FragmentSleepQualityBinding
 
     /**
      * Called when the Fragment is ready to display content to the screen.
@@ -46,8 +47,8 @@ class SleepQualityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentSleepQualityBinding = DataBindingUtil.inflate(
+
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_sleep_quality, container, false
         )
 

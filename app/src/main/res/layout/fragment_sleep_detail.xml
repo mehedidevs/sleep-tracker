@@ -2,10 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- Data to make available to the XML via data binding. In this case,
-         the whole ViewModel, so that we can access the LiveData,
-         click handlers, and state variables. -->
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.mehedi.sleep_tracker.sleepdetail.SleepDetailViewModel" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,6 +17,7 @@
         tools:context=".sleepdetail.SleepDetailFragment">
 
         <ImageView
+            app:sleepImage="@{viewModel.night}"
             android:id="@+id/quality_image"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
@@ -24,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            app:sleepQuality="@{viewModel.night}"
             android:id="@+id/quality_string"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
@@ -35,6 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/quality_image" />
 
         <TextView
+            app:sleepDuration="@{viewModel.night}"
             android:id="@+id/sleep_length"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
@@ -52,6 +59,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="32dp"
             android:text="@string/close"
+            android:onClick="@{() -> viewModel.onClose()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
